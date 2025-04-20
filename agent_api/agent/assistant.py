@@ -1,11 +1,17 @@
 from openai import OpenAI
-import data.session_store as session_store
+import agent_api.data.session_store as session_store
 from openai.types.responses.response_function_tool_call import ResponseFunctionToolCall
 from agent_api.providers.openai_provider import get_response, get_tool_response
 from agent_api.agent.tools.definitions import buscar_documentos, generar_dashboard
 from agent_api.data.session_store import historial_responses
+from dotenv import load_dotenv
+import os
+import json
 
-client = OpenAI()
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI(api_key=api_key)
 
 def crear_response(input_usuario: str, id: str):
     response = get_response()
@@ -13,20 +19,21 @@ def crear_response(input_usuario: str, id: str):
         texto_response = ejecutar_tools(response.output, input_usuario)
     else:
         texto_response = response.output[0].content[0].text
+        session_store.add_response({"role": "assistant", "content": texto_response})
     return texto_response
 
 def chatear(input_usuario: str) -> str:
     session_store.add_response({"role": "user", "content": input_usuario})
-    texto_response, = crear_response(input_usuario, id="")
+    texto_response = crear_response(input_usuario, id="")
     return texto_response
 
 def ejecutar_tools(output, input_usuario: str):
     respuesta = ""
     tool = output[0]
     function_name = tool.name
-    function_args = tool.arguments
+    function_args = json.loads(tool.arguments)
     if function_name == "buscar_documentos":
-        result = buscar_documentos(f"{function_args["consulta"]} {function_args["periodo"]}")
+        result = json.dumps(buscar_documentos(function_args['consulta']))
         session_store.add_response(tool)
         session_store.add_response({
             "type": "function_call_output",
@@ -68,3 +75,17 @@ def ejecutar_tools(output, input_usuario: str):
     #     else:
     #         print(f"Función desconocida: {function_name}")
     # return respuesta
+
+
+query1 = "cual fue el porcentaje de variación de cartera de credito de banco guayaquil en el Q1 y Q2 de hace 5 años atrás?"
+query2 = "dame un resumen de lo que pasó en los balances del Q1 y Q2 de hace 5 años atrás?"
+query3 = "compara el año pasado con este"
+query4 = "hola"
+query5 = "ahora, dame un resumen de lo que te pregunté al inicio, pero solo de activos"
+
+respuesta = chatear(query2)
+print(respuesta)
+respuesta = chatear(query4)
+print(respuesta)
+respuesta = chatear(query5)
+print(respuesta)

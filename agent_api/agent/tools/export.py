@@ -7,7 +7,6 @@ tools = [
         "type": "object",
         "properties": {
             "consulta": {"type": "string", "description": "La consulta que hace el usuario acerca de los estados financieros de Banco Guayaquil."},
-            "periodo": {"type": "string", "description": "El periodo de tiempo sobre el que desea realizar la consulta."}
             },
         },
     "description": "Consulta una base de conocimiento para encontrar información relevante de los estados financieros de Banco Guayaquil.",
@@ -20,7 +19,6 @@ tools = [
         "type": "object",
         "properties": {
             "consulta": {"type": "string", "description": "La consulta que hace el usuario acerca de los datos del dashboard que quiere hacer acerca de los estados financieros de Banco Guayaquil."},
-            "periodo": {"type": "string", "description": "El periodo de tiempo sobre el que desea realizar el dashboard."}
             },
         },
     "description": "Genera un dashboard, gráfico o tabla con los datos financieros de Banco Guayaquil. Primero consultando a una base de datos sobre datos específicos.",

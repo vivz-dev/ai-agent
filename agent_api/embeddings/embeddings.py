@@ -26,7 +26,7 @@ def ver_embeddings_vectores(path):
 def guardar_vectorstore():
     embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
     docs = []
-    with open("./ai-agent/docs/datos_financieros.json", "r", encoding="utf-8") as f:
+    with open("./agent_api/data/database/datos_financieros.json", "r", encoding="utf-8") as f:
         data = json.load(f)
         for entry in data:
             doc = Document(
@@ -35,11 +35,11 @@ def guardar_vectorstore():
             )
             docs.append(doc)
     db = FAISS.from_documents(docs, embedding_model)
-    db.save_local("./ai-agent/vectorstore_fondos")
+    db.save_local("./agent_api/vectorstore_fondos")
 
 try:
     guardar_vectorstore()
-    leer_vectorstore("./ai-agent/vectorstore_fondos", "./ai-agent/docs/metadata/embeddings_2_2.txt")
+    leer_vectorstore("./agent_api/vectorstore_fondos", "./agent_api/data/stored/embeddings_2_3.txt")
     # ver_embeddings_vectores("vectorstore_fondos")
 except Exception as e:
     print(f"Error: {e}")

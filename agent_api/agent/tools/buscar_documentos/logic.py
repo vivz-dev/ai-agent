@@ -1,8 +1,8 @@
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
-from utils.config import EMBEDDING_MODEL, VECTORIAL_DATABASE_NAME
+from agent_api.utils.config import EMBEDDING_MODEL, VECTORIAL_DATABASE_NAME, VECTORIAL_DB_PATH
 import os
-import agent.tools.buscar_documentos.prompts as prompts
+import agent_api.agent.tools.buscar_documentos.prompts as prompts
 from agent_api.providers.openai_provider import get_JSON_openAI, get_text_openAI
 from itertools import product
 
@@ -12,7 +12,7 @@ def leer_database():
     """
     embedding_model = OpenAIEmbeddings(model=EMBEDDING_MODEL)
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), f"{VECTORIAL_DATABASE_NAME}"))
-    db = FAISS.load_local(path, embedding_model, allow_dangerous_deserialization=True)
+    db = FAISS.load_local(VECTORIAL_DB_PATH, embedding_model, allow_dangerous_deserialization=True)
     return db
 
 def extraer_parametros(query: str):

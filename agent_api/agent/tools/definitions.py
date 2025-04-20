@@ -1,6 +1,6 @@
 import agent_api.agent.tools.buscar_documentos.logic as tool_docs
 
-def buscar_documentos(query: str) -> str:
+def buscar_documentos(query: str):
     db = tool_docs.leer_database()
     json_respuesta = tool_docs.extraer_parametros(query)
     combinaciones_posibles = tool_docs.obtener_combinaciones(json_respuesta["filters"])

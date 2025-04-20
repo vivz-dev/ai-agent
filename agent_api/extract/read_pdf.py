@@ -6,8 +6,9 @@ import re
 import json
 
 # source env/bin/activate
-
-pdf_dir = os.path.join(os.path.dirname(__file__), '../data/uploaded/BalancesBG')
+'/Users/vivianavera03/Desktop/Bco Guayaquil/ai-agent/agent_api/extract/../data/uploaded/BalancesBG'
+pdf_dir ='/Users/vivianavera03/Desktop/Bco Guayaquil/ai-agent/agent_api/data/uploaded/BalancesBG'
+# pdf_dir = os.path.join(os.path.dirname(__file__), '/data/uploaded/BalancesBG')
 pdf_paths = glob.glob(os.path.join(pdf_dir, '*.pdf'))
 # pdf_paths = ["/Users/vivianavera03/Desktop/Bco Guayaquil/ai-agent/extract/../docs/uploaded/BalancesBG/ESTADOS_FINANCIEROS_WEB_BG_SEPTIEMBRE2024.pdf"]
 
@@ -80,10 +81,10 @@ try:
             columnas.extend(columnas_nuevas)
             balance_general = pd.concat([balance_general, nuevo_balance], ignore_index=True, axis=1)
     balance_general.columns = columnas
-    balance_general.to_csv('./mi_archivo.csv', index=False, sep=";")
+    balance_general.to_csv('../agent_api/data/database/mi_archivo.csv', index=False, sep=";")
     balance_general = balance_general.dropna(axis=0)
     json_datos = convertir_columnas_a_json(balance_general)
-    with open("datos_financieros.json", "w") as f:
+    with open("./agent_api/data/database/datos_financieros.json", "w") as f:
         json.dump(json_datos, f, indent=2)
 
 except Exception as e:

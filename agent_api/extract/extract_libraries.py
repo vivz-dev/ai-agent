@@ -15,7 +15,7 @@ def read_file(ruta_archivo: str, primera_fila: bool):
 #     tabula.convert_into(ruta_archivo, nombre_logs, output_format="csv")
 
 def crear_balance_general(ruta_archivo: str, primera_fila: bool):
-    nombre_logs = generar_nombre_archivo("plumber", ".txt")
+    nombre_logs = generar_nombre_archivo("plumber", ".\txt")
     with pdfplumber.open(ruta_archivo) as pdf, open(nombre_logs, "a", encoding="utf-8") as log_file:
         pagina_0 = pdf.pages[0]
         text_line = pagina_0.extract_text()
@@ -36,5 +36,5 @@ def crear_balance_general(ruta_archivo: str, primera_fila: bool):
 def generar_nombre_archivo(libreria: str, extension: str):
     ahora = datetime.now()
     timestamp = ahora.strftime("%Y-%m-%d_%H-%M-%S")
-    nombre_archivo = f"./ai-agent/docs/txt/{libreria}_{timestamp}.{extension}"
+    nombre_archivo = f"./agent_api/data/read/{libreria}_{timestamp}.{extension}"
     return nombre_archivo

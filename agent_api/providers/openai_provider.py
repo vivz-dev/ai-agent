@@ -4,8 +4,13 @@ from agent_api.utils.config import OPENAI_MODEL
 from agent_api.data.session_store import historial_responses
 from agent_api.agent.prompts import prompt_system
 from agent_api.agent.tools.export import tools
+from dotenv import load_dotenv
+import os
 
-client = OpenAI()
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI(api_key= api_key)
 
 def get_JSON_openAI(prompt_usuario: str):
     response = client.responses.create(
