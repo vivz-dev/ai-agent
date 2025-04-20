@@ -2,6 +2,8 @@
 venv/
 .env/
 .env.*  # Archivos de entorno con diferentes configuraciones
+env/
+/env/
 
 # Archivos Python
 __pycache__/

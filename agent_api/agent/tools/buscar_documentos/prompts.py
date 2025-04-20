@@ -1,13 +1,8 @@
 from datetime import date
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
-from agent.openai_provider import get_JSON_openAI, get_text_openAI
-from itertools import product
-import os
 
-def extraer_parametros(query: str):
+def get_prompt_parametros(query: str) -> str:
     hoy = date.today()
-    prompt_usuario = f"""
+    return f"""
     Dado el siguiente input del usuario, realiza dos tareas:
 
     1. Reescribe la pregunta de forma explícita, remplazando expresiones vagas como "el año pasado", "último trimestre", "este mes", etc., por los valores concretos de año y mes. Esta versión servirá como texto optimizado para una búsqueda semántica (query).
@@ -49,49 +44,24 @@ def extraer_parametros(query: str):
 
     JSON:
     """
-    respuesta_json = get_JSON_openAI(prompt_usuario)
-    return respuesta_json
 
-def obtener_combinaciones(filter_dict):
-    valid_filters = {k: v if isinstance(v, list) else [v]
-                     for k, v in filter_dict.items() if k != 'reason'}
-    keys = list(valid_filters.keys())
-    values = list(valid_filters.values())
-    combinations = product(*values)
-    return [dict(zip(keys, combo)) for combo in combinations]
+def get_prompt_informe(documentos_relevantes) -> str:
+    return f"""
+    Dada la información financiera de Banco Guayaquil, realiza estas 2 tareas:
+    1. Resumir la información financiera de Banco Guayaquil.
+    2. Generar una respuesta al usuario.
 
-def buscar_documentos(query) -> str:
-    embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
-    path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../vectorstore_fondos"))
-    db = FAISS.load_local(path, embedding_model, allow_dangerous_deserialization=True)
-    json_respuesta = extraer_parametros(query)
-    # json_respuesta = {'query': 'Cuál fue el porcentaje de variación de cartera de crédito de Banco Guayaquil en marzo y junio de 2020',
-    # json_respuesta = {'query': 'Resumen de los ACTIVO, PASIVO, PATRIMONIO, TOTAL PASIVO + PATRIMONIO, TOTAL ACTIVOS + CONTINGEN. NETOS del año 2020 para marzo y junio',
-    #                   'filters': {'concepto': ['ACTIVO', 'PASIVO', 'PATRIMONIO', 'TOTAL PASIVO + PATRIMONIO', 'TOTAL ACTIVOS + CONTINGEN. NETOS'], 'año': ['2020'], 'mes': ['marzo', 'junio']},
-    #                   'reason': 'La pregunta original se refiere a los balances de los dos primeros trimestres del año 2020, por lo que se han incluido los meses marzo y junio. Además, se han extraído todos los conceptos relevantes para el resumen.'}
-    combinaciones_posibles = obtener_combinaciones(json_respuesta["filters"])
-    resultados_finales = []
-    for filtro in combinaciones_posibles:
-        results = db.similarity_search(
-            query=f"{filtro['concepto']} {filtro['mes']} {filtro['año']}",
-            filter={
-                "concepto": filtro["concepto"],
-                "año": filtro["año"],
-                "mes": filtro["mes"],
-            },
-            k=3)
-        for doc in results:
-            resultados_finales.append({
-                "contenido": doc.page_content,
-                "metadata": doc.metadata
-            })
+    CONSIDERACIONES:
+    - Tu tuno es serio, formal y sin emojis.
+    - Asegúrate de incluir todos los conceptos y datos relevantes en tu respuesta.
+    - DEBES de incluir toda la información de los documentos y hacer comparaciones si es necesario.
+    - DEBES de incluir todos los conceptos que estén disponibles e inferir los motivos de cada cantidad numérica.
 
-    informe = realizar_informe(resultados_finales)
-    return informe
+    Datos: 
+    {documentos_relevantes}
+    """
 
-def realizar_informe(documentos_relevantes: list) -> str:
-    if len(documentos_relevantes) == 0: return "Actualmente no tengo acceso a los documentos que mencionas, ya que los datos aún no han sido cargados. Tan pronto como estén disponibles, podré analizarlos y entregarte un informe detallado."
-    # prompt_informe = f"""
+# prompt_informe = f"""
     # Dada la información financiera de Banco Guayaquil, realiza estas 2 tareas:
     # 1. Resumir la información financiera de Banco Guayaquil.
     # 2. Generar un informe al usuario.
@@ -127,19 +97,3 @@ def realizar_informe(documentos_relevantes: list) -> str:
     # Datos:
     # {documentos_relevantes}
     # """
-    prompt_informe = f"""
-    Dada la información financiera de Banco Guayaquil, realiza estas 2 tareas:
-    1. Resumir la información financiera de Banco Guayaquil.
-    2. Generar una respuesta al usuario.
-
-    CONSIDERACIONES:
-    - Tu tuno es serio, formal y sin emojis.
-    - Asegúrate de incluir todos los conceptos y datos relevantes en tu respuesta.
-    - DEBES de incluir toda la información de los documentos y hacer comparaciones si es necesario.
-    - DEBES de incluir todos los conceptos que estén disponibles e inferir los motivos de cada cantidad numérica.
-
-    Datos: 
-    {documentos_relevantes}
-    """
-    respuesta_informe = get_text_openAI(prompt_informe)
-    return respuesta_informe

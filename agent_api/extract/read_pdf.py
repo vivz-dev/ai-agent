@@ -7,7 +7,7 @@ import json
 
 # source env/bin/activate
 
-pdf_dir = os.path.join(os.path.dirname(__file__), '../docs/uploaded/BalancesBG')
+pdf_dir = os.path.join(os.path.dirname(__file__), '../data/uploaded/BalancesBG')
 pdf_paths = glob.glob(os.path.join(pdf_dir, '*.pdf'))
 # pdf_paths = ["/Users/vivianavera03/Desktop/Bco Guayaquil/ai-agent/extract/../docs/uploaded/BalancesBG/ESTADOS_FINANCIEROS_WEB_BG_SEPTIEMBRE2024.pdf"]
 

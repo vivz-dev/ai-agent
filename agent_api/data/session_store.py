@@ -17,11 +17,7 @@ def get_responses():
     return historial_responses
 
 def add_response(response):
-    if len(historial_responses) > 10:
-        del historial_responses[0]
     historial_responses.append(response)
-    # with open(ruta_archivo, 'w', encoding='utf-8') as f:
-    #     json.dump(historial_responses, f, indent=4, ensure_ascii=False)
-
+    
 def clear_responses():
     historial_responses.clear()
