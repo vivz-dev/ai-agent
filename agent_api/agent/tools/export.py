@@ -22,5 +22,17 @@ tools = [
             },
         },
     "description": "Genera un dashboard, gráfico o tabla con los datos financieros de Banco Guayaquil. Primero consultando a una base de datos sobre datos específicos.",
+    },
+    {
+    "type": "function",
+    "name": "olvidar_historial",
+    "strict": False,
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "consulta": {"type": "string", "description": "La intención de olvidar el historial de la conversación actual."},
+            },
+        },
+    "description": "Olvida el historial de la conversación actual.",
     }
 ]

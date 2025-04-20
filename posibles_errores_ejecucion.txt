@@ -1,0 +1,11 @@
+✅ VENV
+source env/bin/activate 
+
+✅ Levantar REST API
+cd /Users/vivianavera03/Desktop/Bco\ Guayaquil/ai-agent
+uvicorn agent_api.main:app --reload
+
+✅ Re-instalar dependencias y volver a levantar el front
+sudo rm -rf node_modules package-lock.json
+sudo npm install
+sudo npm run dev
