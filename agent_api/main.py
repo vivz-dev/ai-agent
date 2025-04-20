@@ -1,11 +1,20 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import agent_api.agent.assistant as assistant
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 class ChatRequest(BaseModel):
     user_input: str
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.post("/chat")
 def chat(request: ChatRequest):
