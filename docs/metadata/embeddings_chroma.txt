@@ -1,0 +1,40 @@
+=== Documento 1 ===
+Concepto: TOTAL PASIVO + PATRIMONIO.
+                Periodo: hasta diciembre 2023.
+                Total del Sistema: 0.0 millones de dólares.
+                Banco Guayaquil: 0.0 millones de dólares.
+                Variación Banco Guayaquil: 0.0 millones (0.0%).
+                Variación Total Sistema: 1.0 millones (-100.0%).
+                Interpretación: En el período hasta diciembre 2023, el concepto TOTAL PASIVO + PATRIMONIO presentó estos cambios tanto a nivel del sistema financiero como en Banco Guayaquil.
+Metadata ->{'año': '2023', 'concepto': 'TOTAL PASIVO + PATRIMONIO', 'mes': 'diciembre', 'periodo': 'diciembre 2023'}
+
+=== Documento 2 ===
+Concepto: TOTAL PASIVO + PATRIMONIO.
+                Periodo: hasta diciembre 2023.
+                Total del Sistema: 0.0 millones de dólares.
+                Banco Guayaquil: 0.0 millones de dólares.
+                Variación Banco Guayaquil: 0.0 millones (0.0%).
+                Variación Total Sistema: 1.0 millones (-100.0%).
+                Interpretación: En el período hasta diciembre 2023, el concepto TOTAL PASIVO + PATRIMONIO presentó estos cambios tanto a nivel del sistema financiero como en Banco Guayaquil.
+Metadata ->{'año': '2023', 'concepto': 'TOTAL PASIVO + PATRIMONIO', 'mes': 'diciembre', 'periodo': 'diciembre 2023'}
+
+=== Documento 3 ===
+Concepto: TOTAL PASIVO + PATRIMONIO.
+                Periodo: hasta diciembre 2023.
+                Total del Sistema: 0.0 millones de dólares.
+                Banco Guayaquil: 0.0 millones de dólares.
+                Variación Banco Guayaquil: 0.0 millones (0.0%).
+                Variación Total Sistema: 1.0 millones (-100.0%).
+                Interpretación: En el período hasta diciembre 2023, el concepto TOTAL PASIVO + PATRIMONIO presentó estos cambios tanto a nivel del sistema financiero como en Banco Guayaquil.
+Metadata ->{'año': '2023', 'concepto': 'TOTAL PASIVO + PATRIMONIO', 'mes': 'diciembre', 'periodo': 'diciembre 2023'}
+
+=== Documento 4 ===
+Concepto: TOTAL PASIVO + PATRIMONIO.
+                Periodo: hasta diciembre 2023.
+                Total del Sistema: 0.0 millones de dólares.
+                Banco Guayaquil: 0.0 millones de dólares.
+                Variación Banco Guayaquil: 0.0 millones (0.0%).
+                Variación Total Sistema: 1.0 millones (-100.0%).
+                Interpretación: En el período hasta diciembre 2023, el concepto TOTAL PASIVO + PATRIMONIO presentó estos cambios tanto a nivel del sistema financiero como en Banco Guayaquil.
+Metadata ->{'año': '2023', 'concepto': 'TOTAL PASIVO + PATRIMONIO', 'mes': 'diciembre', 'periodo': 'diciembre 2023'}
+

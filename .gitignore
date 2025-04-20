@@ -1,0 +1,69 @@
+# Entorno virtual
+venv/
+.env/
+.env.*  # Archivos de entorno con diferentes configuraciones
+
+# Archivos Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de log
+*.log
+logs/
+*.out
+
+# Archivos de base de datos
+*.sqlite3
+*.db
+*.bak
+*.sql
+
+# Cache de pip
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# Bytecode compilado
+*.pyc
+*.pyo
+
+# VSCode / PyCharm / IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos temporales
+*.swp
+*.tmp
+*.DS_Store
+Thumbs.db
+
+# Uvicorn/Pydantic-generated files
+*.pid
+*.pid.lock
+
+# Archivos de pruebas
+htmlcov/
+.tox/
+coverage.xml
+.pytest_cache/
+nosetests.xml
+test-results.xml
+
+# Docker
+docker-compose.override.yml
+*.dockerfile
+*.tar
+
+# Jupyter notebooks (si usas)
+.ipynb_checkpoints/
+
+# Archivos específicos del sistema operativo
+*.orig
+
+# FastAPI static/media (si usas estos directorios)
+static/
+media/
