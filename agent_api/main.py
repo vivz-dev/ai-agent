@@ -22,7 +22,10 @@ def chat(request: ChatRequest):
     user_input = request.user_input
     try:
         assistant_reply = assistant.chatear(user_input)
-        print(ss.historial_responses)
+        print(assistant_reply)
+        # print(ss.get_responses())
+        for mensaje in ss.get_responses():
+            print(mensaje)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     return {"reply": assistant_reply,
