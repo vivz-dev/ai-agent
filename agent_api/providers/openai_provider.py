@@ -1,7 +1,7 @@
 from openai import OpenAI
 import json
 from agent_api.utils.config import OPENAI_MODEL
-from agent_api.data.session_store import historial_responses
+from agent_api.data.session_store import get_responses
 from agent_api.agent.prompts import prompt_system
 from agent_api.agent.tools.export import tools
 from dotenv import load_dotenv
@@ -9,7 +9,6 @@ import os
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
-
 client = OpenAI(api_key= api_key)
 
 def get_JSON_openAI(prompt_usuario: str):
@@ -32,10 +31,11 @@ def get_text_openAI(prompt_usuario: str):
     return response.output[0].content[0].text
 
 def get_response():
+    historial = get_responses()
     response = client.responses.create(
             instructions=prompt_system,
             model=OPENAI_MODEL,
-            input=historial_responses,
+            input=historial,
             tool_choice="auto",
             tools=tools,
             parallel_tool_calls=False
@@ -43,9 +43,10 @@ def get_response():
     return response
 
 def get_tool_response():
+    historial = get_responses()
     response = client.responses.create(
             model=OPENAI_MODEL,
-            input=historial_responses,
+            input=historial,
             tools=tools,
     )
     return response

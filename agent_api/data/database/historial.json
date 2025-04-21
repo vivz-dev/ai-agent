@@ -1,2 +1,6 @@
 [
-]
+    {
+        "role": "user",
+        "content": "dame el % de variación de cartera de crédito del Q1 y Q2 del 2024 en euros"
+    },
+    

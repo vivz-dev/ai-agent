@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import agent_api.agent.assistant as assistant
 from fastapi.middleware.cors import CORSMiddleware
+import agent_api.data.session_store as ss
 
 app = FastAPI()
 
@@ -21,6 +22,8 @@ def chat(request: ChatRequest):
     user_input = request.user_input
     try:
         assistant_reply = assistant.chatear(user_input)
+        print(ss.historial_responses)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    return {"reply": assistant_reply}
+    return {"reply": assistant_reply,
+            "historial": ss.historial_responses}

@@ -21,20 +21,20 @@ def get_prompt_parametros(query: str) -> str:
     - Si te pide un resumen de algún año, DEBES incluir todos los conceptos: ['ACTIVO', 'PASIVO', 'PATRIMONIO', TOTAL PASIVO + PATRIMONIO', 'TOTAL ACTIVOS + CONTINGEN. NETOS'] y TODOS los meses: ['marzo', 'junio', 'septiembre', 'diciembre']
     - DEBES de incluir en el nuevo query todos los conceptos que hallaste.
     - DEBES de incluir la entidad bancaria. Si no se especifica, añade "Banco Guayaquil" como entidad por defecto.
-
+    - DEBES de respetar las mayúsculas y minúsculas al extraer cada concepto, insertándolos tal cual están en las listas proporcionadas.
     ==== EJEMPLO ====
     Input: 
     "cual fue el total de activos y pasivos del ultimo semestre del año pasado?"
 
     JSON:
     {{
-    "query": "ACTIVOS y PASIVOS de Banco Guayaquil de diciembre y junio 2024",
+    "query": "Fondos Disponibles y PASIVOS de Banco Guayaquil de diciembre y junio 2024",
     "filters": {{
-        "concepto": ["ACTIVO", "PASIVO"],
+        "concepto": ["Fondos Disponibles", "PASIVO"],
         "año": ["2024"],
         "mes": [diciembre, junio]
     }}
-    "reason": "La pregunta original se refiere a el último semestre que corresponde a junio y diciembre de 2024. Se han extraído los conceptos 'Activos' y 'Pasivos', que son lo que se solicita en la pregunta"
+    "reason": "La pregunta original se refiere a el último semestre que corresponde a junio y diciembre de 2024. Se han extraído los conceptos 'Fondos Disponibles' y 'PASIVOS', que son lo que se solicita en la pregunta"
     }}
 
     ==== FIN DE EJEMPLO ====

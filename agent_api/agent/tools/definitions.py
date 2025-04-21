@@ -1,5 +1,7 @@
 import agent_api.agent.tools.buscar_documentos.logic as tool_docs
 import agent_api.agent.tools.olvidar_historial.logic as tool_olvidar_historial
+import agent_api.agent.tools.consultar_divisas.logic as tool_consulta_divisas
+
 
 def buscar_documentos(query: str):
     db = tool_docs.leer_database()
@@ -26,6 +28,10 @@ def buscar_documentos(query: str):
 
 def generar_dashboard(query: str) -> str:
     return "Generando dashboard..."
+
+def consultar_divisas(function_args):
+    divisas_actuales = tool_consulta_divisas.consultar(function_args)
+    return divisas_actuales
 
 def olvidar_historial() -> str:
     tool_olvidar_historial.olvidar_historial()
