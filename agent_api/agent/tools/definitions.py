@@ -1,7 +1,10 @@
 import agent_api.agent.tools.buscar_documentos.logic as tool_docs
 import agent_api.agent.tools.olvidar_historial.logic as tool_olvidar_historial
 import agent_api.agent.tools.consultar_divisas.logic as tool_consulta_divisas
-
+import agent_api.agent.tools.grafico_lineas.logic as tool_grafico
+import agent_api.agent.tools.enviar_correo.logic as tool_correo
+import json
+import agent_api.providers.openai_provider as openAIP
 
 def buscar_documentos(query: str):
     db = tool_docs.leer_database()
@@ -26,8 +29,14 @@ def buscar_documentos(query: str):
     # informe = tool_docs.realizar_informe(resultados_finales)
     return resultados_finales
 
-def generar_dashboard(query: str) -> str:
-    return "Generando dashboard..."
+def generar_grafico_lineas(query: str) -> str:
+    params = tool_grafico.extraer_params(query)
+    #{ "entidad": "Guayaquil", "meses": ["junio", "septiembre", "diciembre", "marzo"], "años": ["2022", "2023"], "concepto": ""}
+    df_filtrado = tool_grafico.consultarCSV(params) # dataframe con 2 columnas
+    data_df = df_filtrado.to_json(orient='records')
+    json_ejes = tool_grafico.organizar_params(data_df)
+    graficoURL = openAIP.get_image_url(json_ejes)
+    return graficoURL
 
 def consultar_divisas(function_args):
     divisas_actuales = tool_consulta_divisas.consultar(function_args)
@@ -36,3 +45,7 @@ def consultar_divisas(function_args):
 def olvidar_historial() -> str:
     tool_olvidar_historial.olvidar_historial()
     return "Olvidando historial"
+
+def enviar_correo(function_args):
+    correo = tool_correo.enviar_correo_to(function_args)
+    return correo

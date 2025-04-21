@@ -23,10 +23,11 @@ def chat(request: ChatRequest):
     try:
         assistant_reply = assistant.chatear(user_input)
         print(assistant_reply)
-        # print(ss.get_responses())
+        tipo = "image" if assistant_reply.startswith("http://") or assistant_reply.startswith("https://") else "text"
         for mensaje in ss.get_responses():
             print(mensaje)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     return {"reply": assistant_reply,
-            "historial": ss.historial_responses}
+            "historial": ss.historial_responses,
+            "type": tipo}
