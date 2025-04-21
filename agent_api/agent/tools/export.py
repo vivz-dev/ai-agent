@@ -54,7 +54,7 @@ tools = [
         "required": ["query_completo"],
         "additionalProperties": False
         },
-    "description": "Genera un gráfico de lineas de un concepto a través del tiempo. El tiempo puede ser en meses o años.",
+    "description": "Genera un gráfico o diagrama de lineas (también conocido en estadística como gráfico temporal)  de un concepto a través del tiempo. El tiempo puede ser en meses o años.",
     },
     {
     "type": "function",
@@ -73,5 +73,19 @@ tools = [
         "additionalProperties": False
         },
     "description": "Envía un correo a la dirección correo electrónico especificada, con el contenido que dice la respuesta del usuario o con contenido de conversaciones anteriores del historial.",
+    },
+    {
+    "type": "function",
+    "name": "generar_imagen",
+    "strict": True,
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "query_completo": {"type": "string", "description": "La consulta completa o query completo que hace el usuario."}
+            },
+        "required": ["query_completo"],
+        "additionalProperties": False
+        },
+    "description": "Genera una imagen o elemento visual a partir de cualquier instrucción del usuario.",
     }
 ]

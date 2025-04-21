@@ -31,13 +31,17 @@ def buscar_documentos(query: str):
 
 def generar_grafico_lineas(query: str) -> str:
     params = tool_grafico.extraer_params(query)
+    # print(params)
     #{ "entidad": "Guayaquil", "meses": ["junio", "septiembre", "diciembre", "marzo"], "años": ["2022", "2023"], "concepto": ""}
     df_filtrado = tool_grafico.consultarCSV(params) # dataframe con 2 columnas
     data_df = df_filtrado.to_json(orient='records')
     json_ejes = tool_grafico.organizar_params(data_df)
-    graficoURL = tool_grafico.get_URL(json_ejes)
-    # graficoURL = openAIP.get_image_url(json_ejes)
+    graficoURL = tool_grafico.get_URL(json_ejes, params)
     return graficoURL
+
+def generar_imagen(query: str) -> str:
+    imgURL = openAIP.get_image_url(query)
+    return imgURL
 
 def consultar_divisas(function_args):
     divisas_actuales = tool_consulta_divisas.consultar(function_args)

@@ -2,7 +2,7 @@ from openai import OpenAI
 import agent_api.data.session_store as session_store
 from openai.types.responses.response_function_tool_call import ResponseFunctionToolCall
 from agent_api.providers.openai_provider import get_response, get_tool_response
-from agent_api.agent.tools.definitions import buscar_documentos, olvidar_historial, consultar_divisas, generar_grafico_lineas, enviar_correo
+from agent_api.agent.tools.definitions import buscar_documentos, olvidar_historial, consultar_divisas, generar_grafico_lineas, enviar_correo, generar_imagen
 from agent_api.data.session_store import historial_responses
 from dotenv import load_dotenv
 import os
@@ -45,9 +45,10 @@ def ejecutar_tools(output, input_usuario: str):
                 result = olvidar_historial()
                 respuesta = add_tool(tool, result)
             elif function_name == "enviar_correo":
-                # params
                 result = enviar_correo(function_args)
                 respuesta = add_tool(tool, result)
+            elif function_name == "generar_imagen":
+                respuesta = generar_imagen(function_args['query_completo'])
     except Exception as e:
         # print(f"Ocurrió un error: {e}")
         respuesta = f"Ocurrió un error: {e}"
@@ -75,7 +76,7 @@ query6 = "dame el % de variación de cartera de crédito del Q1 y Q2 del 2024"
 query8 = "transforma 2 dolares a euros"
 queryd = "como está el dolar?"
 query9 = "olvida el historial"
-query10 = "genera un grafico de lineas comparando los activos de 2022 y 2023"
+query10 = "genera un grafico de lineas de los activos de 2022 y 2023"
 query11 = "envia un correo de lo conversado desde vivianavera03@gmail.com a thedovekeeper22@gmail.com y a vivvfalcon@espol.edu.ec con el asunto: urgente"
 
 # respuesta = chatear(query6)
@@ -84,5 +85,5 @@ query11 = "envia un correo de lo conversado desde vivianavera03@gmail.com a thed
 # print(respuesta)
 # respuesta = chatear(queryd)
 # print(respuesta)
-# respuesta = chatear(query10)
-# print(respuesta)
+respuesta = chatear(queryd)
+print(respuesta)

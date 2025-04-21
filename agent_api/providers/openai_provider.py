@@ -50,14 +50,14 @@ def get_tool_response():
     )
     return response
 
-def get_image_url(data: str):
-    prompt = p.get_prompt_image(data)
+def get_image_url(query: str):
+    prompt = p.get_prompt_image(query)
     response = client.images.generate(
         model="dall-e-3",
         prompt=prompt,
         size="1024x1024",
         quality="standard",
-        n=1,
+        n=1
     )
 
     return response.data[0].url

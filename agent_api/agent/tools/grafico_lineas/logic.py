@@ -30,7 +30,10 @@ def consultarCSV(params):
     df_filtrado = df_filtrado_columnas[filtro]
     return df_filtrado
 
-def get_URL(json_data):
+def get_URL(json_data, params):
+    filtros = params["filters"]
+    concepto = "".join(filtros["concepto"])
+
     x = json_data['X']
     y = json_data['Y']
     # "X": ["marzo 2022", "junio 2022", "marzo 2023", junio 2023"]
@@ -39,7 +42,7 @@ def get_URL(json_data):
     plt.plot(x, y, marker='o', linestyle='-', linewidth=2)
     for i, valor in enumerate(y):
         plt.text(x[i], y[i], f'{valor:,.2f}', ha='center', va='bottom', fontsize=9, color='black')
-    plt.title('Evolución de valores en el tiempo')
+    plt.title(f'{concepto}', fontsize=14, weight='bold')
     plt.xlabel('Periodo')
     plt.ylabel('Valor')
     plt.grid(True, linestyle='--', alpha=0.6)

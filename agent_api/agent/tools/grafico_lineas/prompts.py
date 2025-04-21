@@ -44,30 +44,40 @@ def get_prompt_params(query: str) -> str:
     JSON:
     """
 
-def get_prompt_image(dataf_data) -> str:
-    ejeX = "".join(dataf_data["X"])
-    ejeY = dataf_data["Y"]
+def get_prompt_image(query: str) -> str:
     return f"""
-    Dada la siguiente información, Genera un gráfico de líneas profesional con fondo blanco en 2 ejes (Eje X, eje Y.).
+    Dada la siguiente instrucción, genera una imagen.
+
     CONSIDERACIONES:
-    - Dibuja 1 sola línea.
-    - La línea debe de ser color rojo.
-    - DEBES de colocar esto en el eje X: {ejeX}.
-    - DEBES de colocar estos valores en el eje Y: {ejeY}.
+    - La imagen debe ser imagen profesional y visualmente atractiva.
+    - Usa un estilo limpio y moderno, con buena iluminación, composición clara y elementos visuales acordes al sector financiero.
+    - Evita íconos confusos o abstractos que no sean reconocibles fácilmente.
+    
+    INSTRUCCIÓN:
+    {query}
     """
 
 def get_prompt_org(data):
     return f"""
-    Realiza estas 2 tareas:
+    Realiza estas tareas:
 
     1. Analiza la información proporcionada.
-    2. Identifica los tiempos y ordénalos.
+    2. Identifica los tiempos y DEBES de ordenarlos de menor a mayor temporalmente.
     3. Organízala de manera que tenga la siguiente estructura JSON:
 
+    == EJEMPLO 1 ==
     {{
-        "X": ["marzo 2022", "junio 2022", "marzo 2023", junio 2023"]
-        "Y": [7394.0, 31023.0, 10.0, 343.0]
+        "X": ["marzo 2022", "junio 2022", "marzo 2023", junio 2023"],
+        "Y": [<valor de marzo 2022>, <valor de junio 2022>, <valor de marzo 2023>, <valor de junio 2023>],
+        "reason": "Se han ordenado temporalmente: marzo 2022, junio 2022, marzo 2023, junio 2023"
     }}
+    == EJEMPLO 2 ==
+    {{
+        "X": ["marzo 2021", "junio 2021", "septiembre 2021", diciembre 2021"],
+        "Y": [<valor de marzo 2021>, <valor de junio 2021>, <valor de septiembre 2021>, <valor dediciembre 2021>],
+        "reason": "Se han ordenado temporalmente: marzo, junio, septiembre y diciembre 2021"
+    }}
+    == FIN DE EJEMPLO ==
 
     DATOS:
     {data}
