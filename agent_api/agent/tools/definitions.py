@@ -35,7 +35,8 @@ def generar_grafico_lineas(query: str) -> str:
     df_filtrado = tool_grafico.consultarCSV(params) # dataframe con 2 columnas
     data_df = df_filtrado.to_json(orient='records')
     json_ejes = tool_grafico.organizar_params(data_df)
-    graficoURL = openAIP.get_image_url(json_ejes)
+    graficoURL = tool_grafico.get_URL(json_ejes)
+    # graficoURL = openAIP.get_image_url(json_ejes)
     return graficoURL
 
 def consultar_divisas(function_args):

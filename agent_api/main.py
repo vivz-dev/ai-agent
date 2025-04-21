@@ -22,9 +22,9 @@ def chat(request: ChatRequest):
     user_input = request.user_input
     try:
         assistant_reply = assistant.chatear(user_input)
-        print(assistant_reply)
         tipo = "image" if assistant_reply.startswith("http://") or assistant_reply.startswith("https://") else "text"
         for mensaje in ss.get_responses():
+            print("="*10)
             print(mensaje)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

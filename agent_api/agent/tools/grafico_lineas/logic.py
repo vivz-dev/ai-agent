@@ -1,6 +1,16 @@
 import pandas as pd
 import agent_api.agent.tools.grafico_lineas.prompts as p
 from agent_api.providers.openai_provider import get_JSON_openAI, get_text_openAI
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from imgurpython import ImgurClient
+from datetime import datetime
+
+client_id = '5432f96e9520d83'
+client_secret = 'fe81f6a821c79e0d07c2db12d815050d6cc22bbc'
+
+client = ImgurClient(client_id, client_secret)
 
 def consultarCSV(params):
     filtros = params["filters"]
@@ -18,8 +28,33 @@ def consultarCSV(params):
         df['(En millones de dólares)'].str.contains(years)
     )
     df_filtrado = df_filtrado_columnas[filtro]
-
     return df_filtrado
+
+def get_URL(json_data):
+    x = json_data['X']
+    y = json_data['Y']
+    # "X": ["marzo 2022", "junio 2022", "marzo 2023", junio 2023"]
+    # "Y": [7394.0, 31023.0, 10.0, 343.0]
+    plt.figure(figsize=(10, 5))
+    plt.plot(x, y, marker='o', linestyle='-', linewidth=2)
+    for i, valor in enumerate(y):
+        plt.text(x[i], y[i], f'{valor:,.2f}', ha='center', va='bottom', fontsize=9, color='black')
+    plt.title('Evolución de valores en el tiempo')
+    plt.xlabel('Periodo')
+    plt.ylabel('Valor')
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.tight_layout()
+
+    fecha = datetime.now()
+    str_fecha = fecha.strftime("%Y-%m-%d_%H-%M-%S")
+    output_path = f'/Users/vivianavera03/Desktop/Bco Guayaquil/ai-agent/agent_api/data/img/grafico_{str_fecha}.png'
+    plt.savefig(output_path, dpi=300)
+
+    response = client.upload_from_path(output_path, config=None, anon=True)
+    print(response)
+    id = response["id"]# https://i.imgur.com/3hjZnrz.png
+    URL = f"https://i.imgur.com/{id}.png"
+    return URL
 
 def extraer_params(query: str):
     prompt_p = p.get_prompt_params(query)

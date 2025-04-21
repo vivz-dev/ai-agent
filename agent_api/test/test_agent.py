@@ -5,5 +5,5 @@ query2 = "dame un resumen de lo que pasó en los balances del Q1 y Q2 de hace 5 
 query3 = "compara el año pasado con este"
 query4 = "hola"
 
-respuesta = chatear(query4)
-print(respuesta)
+# respuesta = chatear(query4)
+# print(respuesta)

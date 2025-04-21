@@ -41,5 +41,5 @@ Envía un correo electrónico con la información solicitada o generada durante 
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/d7ea9b84-6e03-42e6-b42a-893a46ed0eb0" />
 
 
-# Documentación
-[Figma Slides](https://www.figma.com/deck/iE9ntqPVFauQO9oVtTixIy/Leo---Documentaci%C3%B3n?node-id=1-42&t=HHZl2H2DX3AWmQZf-1)
+<!-- # Documentación
+[Figma Slides](https://www.figma.com/deck/iE9ntqPVFauQO9oVtTixIy/Leo---Documentaci%C3%B3n?node-id=1-42&t=HHZl2H2DX3AWmQZf-1) -->
